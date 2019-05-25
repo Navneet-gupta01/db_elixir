@@ -5,6 +5,6 @@ config :db_foo, :databse_conf,
   password: "postgres",
   hostname: "localhost",
   database: "foo",
-  name: :bar_db,
+  name: :foo_db,
   pool: DBConnection.ConnectionPool,
   pool_size: 15

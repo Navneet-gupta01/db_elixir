@@ -13,7 +13,7 @@ defmodule Init.RepoSchema do
 
   def runTask({db_conf, table_name}) do
     sql =
-      ~s(CREATE TABLE "#{table_name}" \x28 id serial PRIMARY KEY, a integer NOT NULL, b integer NOT NULL, c integer NOT NULL \x29)
+      ~s(CREATE TABLE "#{table_name}" \x28 a integer NOT NULL PRIMARY KEY, b integer NOT NULL, c integer NOT NULL \x29)
 
     {:ok, pid} = Task.Supervisor.start_link()
 

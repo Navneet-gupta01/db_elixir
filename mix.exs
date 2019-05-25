@@ -23,8 +23,7 @@ defmodule DbTest.MixProject do
     [
       create: ["create_bar", "create_foo"],
       migrate: ["migrate_bar", "migrate_foo"],
-      "init.repo": ["create", "migrate"],
-      "create.test": ["create_example", "migrate_example"]
+      "init.repo": ["create", "migrate"]
     ]
   end
 end

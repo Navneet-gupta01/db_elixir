@@ -21,6 +21,7 @@ use Mix.Config
 #     config :logger, level: :info
 #
 
+config :db_bar, max_record: 1_000_000
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.

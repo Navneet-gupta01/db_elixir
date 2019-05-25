@@ -10,17 +10,17 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :db_foo, key: :value
+#     config :dbs, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:db_foo, :key)
+#     Application.get_env(:dbs, :key)
 #
 # You can also configure a third-party app:
 #
 #     config :logger, level: :info
 #
-config :db_foo, max_record: 1_000_000
+
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.
