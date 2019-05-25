@@ -21,7 +21,10 @@ defmodule DbTest.MixProject do
 
   defp aliases do
     [
-      create: ["create_bar", "create_foo"]
+      create: ["create_bar", "create_foo"],
+      migrate: ["migrate_bar", "migrate_foo"],
+      "init.repo": ["create", "migrate"],
+      "create.test": ["create_example", "migrate_example"]
     ]
   end
 end
