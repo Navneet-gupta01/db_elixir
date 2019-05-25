@@ -9,9 +9,9 @@ defmodule Init.RepoInit do
 
   @default_maintenance_database "postgres"
 
-  def fetch_config(app) do
-    conf = Application.get_all_env(app)
-    db_conf = Keyword.fetch!(conf, :databse_conf)
+  def fetch_config(db_conf_name) do
+    conf = Application.get_all_env(:dbs)
+    db_conf = Keyword.fetch!(conf, db_conf_name)
     database = Keyword.fetch!(db_conf, :database)
     {database, Keyword.put(db_conf, :database, @default_maintenance_database)}
   end

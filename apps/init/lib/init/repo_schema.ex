@@ -6,9 +6,9 @@ defmodule Init.RepoSchema do
     end
   end
 
-  def fetch_config(app, table_name) do
-    conf = Application.get_all_env(app)
-    {Keyword.fetch!(conf, :databse_conf), table_name}
+  def fetch_config(db_conf_name, table_name) do
+    conf = Application.get_all_env(:dbs)
+    {Keyword.fetch!(conf, db_conf_name), table_name}
   end
 
   def runTask({db_conf, table_name}) do
