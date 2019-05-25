@@ -14,7 +14,8 @@ defmodule Dbs.Supervisor do
       %{
         id: :bar_db_pool,
         start: {Postgrex, :start_link, [Application.get_env(:dbs, :bar_database_conf)]}
-      }
+      },
+      Dbs.Web
     ]
 
     Supervisor.init(
