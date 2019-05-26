@@ -14,6 +14,13 @@ vi apps/dbs/config/dev.exs
 git clone https://github.com/Navneet-gupta01/db_elixir.git
 cd db_elixir
 ```
+
+
+## Testing The application
+```
+mix test
+```
+
 ### Creating DB and Schema
 ```
 mix init
