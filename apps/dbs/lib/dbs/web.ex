@@ -53,7 +53,7 @@ defmodule Dbs.Web do
       |> put_resp_content_type("text/event-stream")
       |> send_chunked(200)
 
-    header = "a,b,c"
+    header = "a, b, c"
     conn |> chunk("#{header}\n")
 
     send_next_bar(conn, from_id)
@@ -73,7 +73,7 @@ defmodule Dbs.Web do
 
         conn =
           Enum.reduce_while(rows, conn, fn [a, b, c], conn ->
-            case chunk(conn, "data: #{a}, #{b}, #{c}\n\n") do
+            case chunk(conn, "#{a}, #{b}, #{c}\n") do
               {:ok, conn} ->
                 {:cont, conn}
 
@@ -104,7 +104,7 @@ defmodule Dbs.Web do
 
         conn =
           Enum.reduce_while(rows, conn, fn [a, b, c], conn ->
-            case chunk(conn, "data: #{a}, #{b}, #{c}\n\n") do
+            case chunk(conn, "#{a}, #{b}, #{c}\n") do
               {:ok, conn} ->
                 {:cont, conn}
 
