@@ -27,7 +27,6 @@ defmodule Dbs.MixProject do
   defp deps do
     [
       {:init, in_umbrella: true},
-      {:poolboy, "~> 1.5"},
       {:postgrex, "~> 0.14.3"},
       {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"}
