@@ -119,3 +119,7 @@ a,b,c
 999999, 0, 4
 1000000, 1, 0
 ```
+
+
+# Further Improvement that can be worked on.
+* While Streaming data through Http Api's DB's is checked frequently for any update. It could be avoided using A Pub-Sub channel. Http_Api can subscribe to different sources (here dest/source tables changes.). And once record are inserted a event could be published to the corresponding subscriber.
