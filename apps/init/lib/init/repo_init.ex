@@ -2,8 +2,8 @@ defmodule Init.RepoInit do
   @doc false
   defmacro __using__(_) do
     quote do
-      import Init.RepoInit
-      alias Init.RepoInit
+      import unquote(__MODULE__)
+      alias unquote(__MODULE__)
     end
   end
 
