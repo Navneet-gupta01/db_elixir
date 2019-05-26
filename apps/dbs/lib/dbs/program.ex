@@ -86,15 +86,4 @@ defmodule Dbs.Program do
 
     IO.puts("Time Consumed: #{System.monotonic_time(:second) - start}")
   end
-
-  def stream_foo do
-    start = System.monotonic_time(:second)
-
-    IO.puts("Time Consumed: #{System.monotonic_time(:second) - start}")
-  end
-
-  def stream_bar do
-    start = System.monotonic_time(:second)
-    IO.puts("Time Consumed: #{System.monotonic_time(:second) - start}")
-  end
 end

@@ -1,5 +1,7 @@
 use Mix.Config
 
+config :dbs, max_record: 1_000
+
 config(:dbs, :bar_database_conf,
   username: "postgres",
   password: "postgres",

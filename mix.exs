@@ -21,7 +21,8 @@ defmodule DbTest.MixProject do
 
   defp aliases do
     [
-      init: ["create_dbs", "migrate_dbs"]
+      init: ["create_dbs", "migrate_dbs"],
+      test: ["init --quiet", "test"]
     ]
   end
 end
