@@ -40,22 +40,20 @@ defmodule Dbs.Program do
     |> Stream.chunk_every(1000, 1000, [])
     |> Task.async_stream(
       fn rows ->
-        Enum.each([1], fn _ ->
-          Postgrex.transaction(
-            Application.get_env(:dbs, :foo_database_conf)[:name],
-            fn conn ->
-              values =
-                rows
-                |> Enum.map(fn [f, s, t] -> "(#{f}, #{s}, #{t})" end)
-                |> Enum.join(" , ")
+        Postgrex.transaction(
+          Application.get_env(:dbs, :foo_database_conf)[:name],
+          fn conn ->
+            values =
+              rows
+              |> Enum.map(fn [f, s, t] -> "(#{f}, #{s}, #{t})" end)
+              |> Enum.join(" , ")
 
-              sql = "INSERT INTO source (a,b,c) values " <> values
-              prepare = Postgrex.prepare!(conn, "", sql)
-              Postgrex.stream(conn, prepare, []) |> Enum.into([])
-            end,
-            timeout: :infinity
-          )
-        end)
+            sql = "INSERT INTO source (a,b,c) values " <> values
+            prepare = Postgrex.prepare!(conn, "", sql)
+            Postgrex.stream(conn, prepare, []) |> Enum.into([])
+          end,
+          timeout: :infinity
+        )
       end,
       max_concurrency: 8,
       timeout: :infinity
