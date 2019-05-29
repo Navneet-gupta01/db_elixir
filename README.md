@@ -38,8 +38,19 @@ iex> Dbs.Program.import
 time mix run -e "Dbs.Program.import"
 ```
 
+### Faster Way of Seeding Databse Foo( Using bulk insert)
+# One Way
+```
+iex -S mix
+iex> Dbs.Program.import2
+```
 
-### Faster Way of Seeding Databse Foo( Using COPY method)
+# Another Way
+```
+time mix run -e "Dbs.Program.import2"
+```
+
+### Another Faster Way of Seeding Databse Foo( Using COPY method)
 # One Way
 ```
 iex -S mix

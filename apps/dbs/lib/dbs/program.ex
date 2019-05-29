@@ -4,18 +4,19 @@ defmodule Dbs.Program do
     max_record_to_insert = Application.get_env(:dbs, :max_record)
 
     1..max_record_to_insert
-    |> Stream.chunk_every(10000, 10000, [])
+    |> Stream.chunk_every(1000, 1000, [])
     |> Task.async_stream(
       fn rows ->
         Enum.each(rows, fn x ->
           Postgrex.transaction(
             Application.get_env(:dbs, :foo_database_conf)[:name],
             fn conn ->
-              Postgrex.query!(conn, "INSERT INTO source (a, b, c) values ($1, $2, $3)", [
+              Postgrex.stream(conn, "INSERT INTO source (a, b, c) values ($1, $2, $3)", [
                 x,
                 rem(x, 3),
                 rem(x, 5)
               ])
+              |> Enum.into([])
             end,
             timeout: :infinity
           )
@@ -29,12 +30,50 @@ defmodule Dbs.Program do
     IO.puts("Time Consumed: #{System.monotonic_time(:second) - start}")
   end
 
+  def import2 do
+    start = System.monotonic_time(:second)
+
+    max_record_to_insert = Application.get_env(:dbs, :max_record)
+
+    1..max_record_to_insert
+    |> Stream.map(&[&1, rem(&1, 3), rem(&1, 5)])
+    |> Stream.chunk_every(1000, 1000, [])
+    |> Task.async_stream(
+      fn rows ->
+        Enum.each([1], fn _ ->
+          Postgrex.transaction(
+            Application.get_env(:dbs, :foo_database_conf)[:name],
+            fn conn ->
+              values =
+                rows
+                |> Enum.map(fn [f, s, t] -> "(#{f}, #{s}, #{t})" end)
+                |> Enum.join(" , ")
+
+              sql = "INSERT INTO source (a,b,c) values " <> values
+              prepare = Postgrex.prepare!(conn, "", sql)
+              Postgrex.stream(conn, prepare, []) |> Enum.into([])
+            end,
+            timeout: :infinity
+          )
+        end)
+      end,
+      max_concurrency: 8,
+      timeout: :infinity
+    )
+    |> Stream.run()
+
+    IO.puts("Time Consumed: #{System.monotonic_time(:second) - start}")
+  end
+
+  # defp get_sql(rows) do
+  # end
+
   def import_copy do
     start = System.monotonic_time(:second)
     max_record_to_insert = Application.get_env(:dbs, :max_record)
 
     1..max_record_to_insert
-    |> Stream.chunk_every(10000, 10000, [])
+    |> Stream.chunk_every(1000, 1000, [])
     |> Task.async_stream(
       fn rows ->
         Postgrex.transaction(
